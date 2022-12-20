@@ -25,5 +25,12 @@ app.use("/api/Commentaire", RouterCommentaire);
 app.use("/api/email", RouterEmail);
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
-const PORT = 5000;
-app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
+const server = http.createServer((request, response) => {
+  // You pass two more arguments for config and middleware
+  // More details here: https://github.com/vercel/serve-handler#options
+  return handler(request, response);
+});
+
+server.listen(5000, () => {
+  console.log("Running at http://localhost:5000");
+});

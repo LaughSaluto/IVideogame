@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.323e8a84.css",
-    "main.js": "/static/js/main.1fa650df.js",
-    "static/js/787.d40918a7.chunk.js": "/static/js/787.d40918a7.chunk.js",
-    "static/media/GameCude.gif": "/static/media/GameCude.7e18eea9a03de5c9c003.gif",
-    "index.html": "/index.html",
-    "main.323e8a84.css.map": "/static/css/main.323e8a84.css.map",
-    "main.1fa650df.js.map": "/static/js/main.1fa650df.js.map",
-    "787.d40918a7.chunk.js.map": "/static/js/787.d40918a7.chunk.js.map"
+    "main.css": "/IVideogame/static/css/main.508d15f1.css",
+    "main.js": "/IVideogame/static/js/main.24063a3d.js",
+    "static/js/787.d40918a7.chunk.js": "/IVideogame/static/js/787.d40918a7.chunk.js",
+    "static/media/GameCude.gif": "/IVideogame/static/media/GameCude.7e18eea9a03de5c9c003.gif",
+    "index.html": "/IVideogame/index.html",
+    "main.508d15f1.css.map": "/IVideogame/static/css/main.508d15f1.css.map",
+    "main.24063a3d.js.map": "/IVideogame/static/js/main.24063a3d.js.map",
+    "787.d40918a7.chunk.js.map": "/IVideogame/static/js/787.d40918a7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.323e8a84.css",
-    "static/js/main.1fa650df.js"
+    "static/css/main.508d15f1.css",
+    "static/js/main.24063a3d.js"
   ]
 }
