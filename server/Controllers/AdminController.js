@@ -48,7 +48,7 @@ exports.login = async (req, res) => {
     }
 
     if (!isMatch) {
-      return res.status(404).json("mot de passe incorrect");
+      return res.status(400).json("mot de passe incorrect");
     }
 
     const token = jwt.sign(
@@ -58,8 +58,8 @@ exports.login = async (req, res) => {
         expiresIn: "1h",
       }
     );
-    res.status(200).json(token);
+    res.status(201).json(token);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };

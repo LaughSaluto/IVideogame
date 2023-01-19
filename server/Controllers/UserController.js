@@ -33,7 +33,7 @@ exports.signUp = async (req, res) => {
 
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -58,9 +58,9 @@ exports.login = async (req, res) => {
       expiresIn: "1h",
     }*/
     );
-    res.json(token);
+    res.status(200).json(token);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -76,7 +76,7 @@ exports.updateUserNonAdmin = async (req, res) => {
     await user.save();
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -85,9 +85,9 @@ exports.info = async (req, res) => {
   try {
     let user = await User.findById(req.payload.id);
 
-    res.json(user);
+    res.status(200).json(user);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -97,12 +97,12 @@ exports.getUser = async (req, res) => {
     let user = await User.find();
 
     if (req.payload.role !== "admin") {
-      res.status(501).json("Vous n'avais pas le bon role");
+      res.status(401).json("Vous n'avais pas le bon role");
     }
 
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -116,13 +116,13 @@ exports.deleteUser = async (req, res) => {
     }
 
     if (req.payload.role !== "admin") {
-      res.status(501).json("Vous n'avais pas le bon role");
+      res.status(401).json("Vous n'avais pas le bon role");
     }
 
     await user.remove();
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -136,7 +136,7 @@ exports.updateUser = async (req, res) => {
     }
 
     if (req.payload.role !== "admin") {
-      res.status(501).json("Vous n'aviez pas le bon rôle.");
+      res.status(401).json("Vous n'aviez pas le bon rôle.");
     }
 
     if (req.file) {
@@ -150,6 +150,6 @@ exports.updateUser = async (req, res) => {
     await user.save();
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };

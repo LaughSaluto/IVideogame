@@ -19,13 +19,13 @@ exports.addFavori = async (req, res) => {
     if (!produitListeFavori) {
       let produit = await ListeFavori.create(req.body);
       produit = await produit.populate("idJeuxVideo");
-      return res.status(201).json(produit);
+      return res.status(400).json(produit);
     }
 
     await produitListeFavori.save();
-    res.json(produitListeFavori);
+    res.status(200).json(produitListeFavori);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -35,9 +35,9 @@ exports.getListeFavori = async (req, res) => {
     let listeFavori = await ListeFavori.find()
       .where("idUser", req.payload.id)
       .populate("idJeuxVideo");
-    res.json(listeFavori);
+    res.status(200).json(listeFavori);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -46,7 +46,7 @@ exports.deleteFavori = async (req, res) => {
   try {
     let listeFavori = await ListeFavori.findById(req.params.id);
     if (!listeFavori) {
-      return res.status(400).json("Le jeu n'existe pas ou plus");
+      return res.status(404).json("Le jeu n'existe pas ou plus");
     }
     if (listeFavori.idUser != req.payload.id) {
       return res
@@ -54,8 +54,8 @@ exports.deleteFavori = async (req, res) => {
         .json("Vous n'avez pas l'autorisation de faire cela.");
     }
     await listeFavori.remove();
-    res.json(listeFavori);
+    res.status(200).json(listeFavori);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };

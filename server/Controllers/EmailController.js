@@ -37,6 +37,6 @@ exports.createEmail = async (req, res) => {
       console.log("Email sent: " + info.response);
     });
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };

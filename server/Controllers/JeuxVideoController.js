@@ -12,7 +12,7 @@ exports.addGame = async (req, res) => {
     const jeuxvideo = await Jeuxvideo.create(req.body);
     res.status(201).json(jeuxvideo);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -20,9 +20,9 @@ exports.addGame = async (req, res) => {
 exports.getAllGame = async (req, res) => {
   try {
     let jeuxvideo = await Jeuxvideo.find();
-    res.json(jeuxvideo);
+    res.status(200).json(jeuxvideo);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -35,9 +35,9 @@ exports.getGame = async (req, res) => {
       return res.status(404).json("le jeu n'existe pas");
     }
 
-    res.json(jeuxvideo);
+    res.status(200).json(jeuxvideo);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -51,12 +51,12 @@ exports.DeleteGame = async (req, res) => {
     }
 
     if (req.payload.role !== "admin") {
-      res.status(501).json("Vous n'aviez pas le bon rôle.");
+      res.status(401).json("Vous n'aviez pas le bon rôle.");
     }
     await jeuxvideo.remove();
-    res.status(201).json(jeuxvideo);
+    res.status(200).json(jeuxvideo);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -70,7 +70,7 @@ exports.updateGame = async (req, res) => {
     }
 
     if (req.payload.role !== "admin") {
-      res.status(501).json("Vous n'aviez pas le bon rôle.");
+      res.status(401).json("Vous n'aviez pas le bon rôle.");
     }
 
     if (req.file) {
@@ -90,6 +90,6 @@ exports.updateGame = async (req, res) => {
     await jeuxvideo.save();
     res.status(201).json(jeuxvideo);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };

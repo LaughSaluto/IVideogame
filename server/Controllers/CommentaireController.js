@@ -21,9 +21,9 @@ exports.addCommentaire = async (req, res) => {
       return res.status(201).json(produit);
     }
     await commentaireListe.save();
-    res.json(commentaireListe);
+    res.status(201).json(commentaireListe);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -33,9 +33,9 @@ exports.getCommentaire = async (req, res) => {
     let commentaire = await Commentaire.find()
       .where("idUser", req.payload.id)
       .populate("idJeuxVideo");
-    res.json(commentaire);
+    res.status(200).json(commentaire);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(401).json(error.message);
   }
 };
 
@@ -45,9 +45,9 @@ exports.getAllCommentaire = async (req, res) => {
     let commentaire = await Commentaire.find()
       .populate("idUser")
       .populate("idJeuxVideo");
-    res.json(commentaire);
+    res.status(200).json(commentaire);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -61,9 +61,9 @@ exports.getCommentairebyIDgame = async (req, res) => {
     if (!commentaire) {
       return res.status(404).json("Le commentaire n'existe pas.");
     }
-    res.json(commentaire);
+    res.status(200).json(commentaire);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(404).json(error.message);
   }
 };
 
@@ -79,7 +79,7 @@ exports.updateCommentaire = async (req, res) => {
     if (commentaire.idUser != req.payload.id) {
       if (req.payload.role !== "admin") {
         return res
-          .status(501)
+          .status(401)
           .json("Vous n'avez pas l'autorisation de faire cela.");
       }
     }
@@ -89,7 +89,7 @@ exports.updateCommentaire = async (req, res) => {
     await commentaire.save();
     res.status(201).json(commentaire);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
 
@@ -98,20 +98,20 @@ exports.deleteCommentaire = async (req, res) => {
   try {
     let commentaire = await Commentaire.findById(req.params.id);
     if (!commentaire) {
-      return res.status(400).json("Le jeu n'existe pas ou plus");
+      return res.status(404).json("Le jeu n'existe pas ou plus");
     }
 
     if (commentaire.idUser != req.payload.id) {
       if (req.payload.role !== "admin") {
         return res
-          .status(501)
+          .status(401)
           .json("Vous n'avez pas l'autorisation de faire cela.");
       }
     }
 
     await commentaire.remove();
-    res.json(commentaire);
+    res.status(200).json(commentaire);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(400).json(error.message);
   }
 };
