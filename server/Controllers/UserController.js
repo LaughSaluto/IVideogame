@@ -44,12 +44,12 @@ exports.login = async (req, res) => {
     let user = await User.findOne().where("email", email);
 
     if (!user) {
-      return res.status(400).json("L'adresse n'existe pas.");
+      return res.status(404).json("L'adresse n'existe pas.");
     }
 
     let isMatch = bcrypt.compareSync(password, user.password);
     if (!isMatch) {
-      return res.status(400).json("mot de passe incorrect");
+      return res.status(404).json("mot de passe incorrect");
     }
 
     const token = jwt.sign(
